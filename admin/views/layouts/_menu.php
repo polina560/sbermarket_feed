@@ -5,7 +5,20 @@ use admin\models\UserAdminSearch;
 use admin\modules\modelExportImport\models\ModelImportLogSearch;
 use admin\modules\rbac\components\RbacNav;
 use common\components\helpers\UserUrl;
-use common\models\{ExportListSearch, TextSearch};
+use common\models\{BuildingSearch,
+    ComplexSearch,
+    DescriptionMainSearch,
+    DeveloperSearch,
+    DiscountSearch,
+    ExportListSearch,
+    FlatSearch,
+    ImageSearch,
+    PlanSearch,
+    ProfitMainSearch,
+    RoomAreaSearch,
+    SaleInfoSearch,
+    TextSearch,
+    WorkDaySearch};
 use common\modules\log\Log;
 use common\modules\mail\models\{MailingLogSearch, MailingSearch, MailTemplateSearch};
 use common\modules\notification\widgets\NotificationBell;
@@ -48,11 +61,54 @@ if (!Yii::$app->user->isGuest) {
         [
             'label' => Icon::show('file-alt') . 'Контент',
             'items' => [
-                ['label' => Icon::show('wrench') . 'Публичные параметры', 'url' => ['/param/index']],
                 [
-                    'label' => Icon::show('align-justify') . 'Тексты',
-                    'url' => UserUrl::setFilters(TextSearch::class, ['/text/index'])
-                ]
+                    'label' => Yii::t('app', 'Complexes'),
+                    'url' => UserUrl::setFilters(ComplexSearch::class, ['/complex/index'])
+                ],
+                [
+                    'label' => Yii::t('app', 'Buildings'),
+                    'url' => UserUrl::setFilters(BuildingSearch::class, ['/building/index'])
+                ],
+                [
+                    'label' => Yii::t('app', 'Images'),
+                    'url' => UserUrl::setFilters(ImageSearch::class, ['/image/index'])
+                ],
+                [
+                    'label' => Yii::t('app', 'Flats'),
+                    'url' => UserUrl::setFilters(FlatSearch::class, ['/flat/index'])
+                ],
+                [
+                    'label' => Yii::t('app', 'Discounts'),
+                    'url' => UserUrl::setFilters(DiscountSearch::class, ['/discount/index'])
+                ],
+                [
+                    'label' => Yii::t('app', 'Profit Mains'),
+                    'url' => UserUrl::setFilters(ProfitMainSearch::class, ['/profit-main/index'])
+                ],
+                [
+                    'label' => Yii::t('app', 'Description Mains'),
+                    'url' => UserUrl::setFilters(DescriptionMainSearch::class, ['/description-main/index'])
+                ],
+                [
+                    'label' => Yii::t('app', 'Sale Infos'),
+                    'url' => UserUrl::setFilters(SaleInfoSearch::class, ['/sale-info/index'])
+                ],
+                [
+                    'label' => Yii::t('app', 'Work Days'),
+                    'url' => UserUrl::setFilters(WorkDaySearch::class, ['/work-day/index'])
+                ],
+                [
+                    'label' => Yii::t('app', 'Developers'),
+                    'url' => UserUrl::setFilters(DeveloperSearch::class, ['/developer/index'])
+                ],
+                [
+                    'label' => Yii::t('app', 'Plans'),
+                    'url' => UserUrl::setFilters(PlanSearch::class, ['/plan/index'])
+                ],
+                [
+                    'label' => Yii::t('app', 'Room Areas'),
+                    'url' => UserUrl::setFilters(RoomAreaSearch::class, ['/room-area/index'])
+                ],
             ]
         ],
         [
