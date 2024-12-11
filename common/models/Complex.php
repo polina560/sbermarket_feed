@@ -3,6 +3,8 @@
 namespace common\models;
 
 use common\models\AppActiveRecord;
+use OpenApi\Attributes\Property;
+use OpenApi\Attributes\Schema;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
@@ -24,6 +26,9 @@ use yii\helpers\ArrayHelper;
  * @property-read ProfitMain[]      $profitMains
  * @property-read SaleInfo[]        $saleInfos
  */
+#[Schema ( properties: [
+    new Property(property: 'name', type: 'string')
+])]
 class Complex extends AppActiveRecord
 {
     /**
@@ -57,6 +62,13 @@ class Complex extends AppActiveRecord
             'latitude' => Yii::t('app', 'Latitude'),
             'longitude' => Yii::t('app', 'Longitude'),
             'address' => Yii::t('app', 'Address'),
+        ];
+    }
+
+    public function fields()
+    {
+        return [
+            'name'
         ];
     }
 
