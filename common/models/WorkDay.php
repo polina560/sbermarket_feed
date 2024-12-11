@@ -47,7 +47,7 @@ class WorkDay extends AppActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'id_sale_info' => Yii::t('app', 'Id Sale Info'),
+            'id_sale_info' => Yii::t('app', 'ID Sale Info'),
             'day' => Yii::t('app', 'Day'),
             'open_at' => Yii::t('app', 'Open At'),
             'close_at' => Yii::t('app', 'Close At'),

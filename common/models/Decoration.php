@@ -8,24 +8,23 @@ use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 
 /**
- * This is the model class for table "{{%discount}}".
+ * This is the model class for table "{{%decoration}}".
  *
- * @property int              $id
- * @property int              $id_complex  Комплекс
- * @property string           $name        Название акции
- * @property string           $description Описание акции
- * @property string|null      $image       Изображение
+ * @property int          $id
+ * @property int          $id_complex Комплекс
+ * @property string       $title      Имя типа отделки
+ * @property string       $text       Описание отделки
  *
- * @property-read Complex     $complex
+ * @property-read Complex $complex
  */
-class Discount extends AppActiveRecord
+class Decoration extends AppActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName(): string
     {
-        return '{{%discount}}';
+        return '{{%decoration}}';
     }
 
     /**
@@ -34,10 +33,9 @@ class Discount extends AppActiveRecord
     public function rules(): array
     {
         return [
-            [['id_complex', 'name', 'description'], 'required'],
+            [['id_complex', 'title', 'text'], 'required'],
             [['id_complex'], 'integer'],
-            [['name', 'image'], 'string', 'max' => 255],
-            [['description'], 'string', 'max' => 3000],
+            [['title', 'text'], 'string', 'max' => 255],
             [['id_complex'], 'exist', 'skipOnError' => true, 'targetClass' => Complex::class, 'targetAttribute' => ['id_complex' => 'id']]
         ];
     }
@@ -50,9 +48,8 @@ class Discount extends AppActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'id_complex' => Yii::t('app', 'ID Complex'),
-            'name' => Yii::t('app', 'Name'),
-            'description' => Yii::t('app', 'Description'),
-            'image' => Yii::t('app', 'Image'),
+            'title' => Yii::t('app', 'Title'),
+            'text' => Yii::t('app', 'Text'),
         ];
     }
 

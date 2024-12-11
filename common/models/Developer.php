@@ -49,8 +49,8 @@ class Developer extends AppActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'id_complex' => Yii::t('app', 'Id Complex'),
-            'id_developer' => Yii::t('app', 'Id Developer'),
+            'id_complex' => Yii::t('app', 'ID Complex'),
+            'id_developer' => Yii::t('app', 'ID Developer'),
             'name' => Yii::t('app', 'Name'),
             'site' => Yii::t('app', 'Site'),
             'logo' => Yii::t('app', 'Logo'),

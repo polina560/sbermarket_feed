@@ -14,7 +14,7 @@ use yii\widgets\ListView;
  * @var $model        common\models\ProfitMain
  */
 
-$this->title = Yii::t('app', 'Profit Mains');
+$this->title = Yii::t('app', 'Profits Main');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="profit-main-index">
@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= RbacHtml::encode($this->title) ?></h1>
 
     <div>
-        <?= 
+        <?=
             RbacHtml::a(Yii::t('app', 'Create Profit Main'), ['create'], ['class' => 'btn btn-success']);
 //           $this->render('_create_modal', ['model' => $model]);
         ?>

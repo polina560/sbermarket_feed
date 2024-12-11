@@ -57,9 +57,9 @@ class Building extends AppActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'id_build' => Yii::t('app', 'Id Build'),
+            'id_build' => Yii::t('app', 'ID Build'),
             'fz_214' => Yii::t('app', 'Fz 214'),
-            'id_complex' => Yii::t('app', 'Id Complex'),
+            'id_complex' => Yii::t('app', 'ID Complex'),
             'name' => Yii::t('app', 'Name'),
             'floors' => Yii::t('app', 'Floors'),
             'floors_ready' => Yii::t('app', 'Floors Ready'),

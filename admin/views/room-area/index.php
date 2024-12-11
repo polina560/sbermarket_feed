@@ -14,7 +14,7 @@ use yii\widgets\ListView;
  * @var $model        common\models\RoomArea
  */
 
-$this->title = Yii::t('app', 'Room Areas');
+$this->title = Yii::t('app', 'Rooms Area');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="room-area-index">
@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= RbacHtml::encode($this->title) ?></h1>
 
     <div>
-        <?= 
+        <?=
             RbacHtml::a(Yii::t('app', 'Create Room Area'), ['create'], ['class' => 'btn btn-success']);
 //           $this->render('_create_modal', ['model' => $model]);
         ?>

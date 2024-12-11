@@ -9,21 +9,21 @@ use yii\widgets\ListView;
 
 /**
  * @var $this         yii\web\View
- * @var $searchModel  common\models\DescriptionMainSearch
+ * @var $searchModel  common\models\DecorationSearch
  * @var $dataProvider yii\data\ActiveDataProvider
- * @var $model        common\models\DescriptionMain
+ * @var $model        common\models\Decoration
  */
 
-$this->title = Yii::t('app', 'Descriptions Main');
+$this->title = Yii::t('app', 'Decorations');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="description-main-index">
+<div class="decoration-index">
 
     <h1><?= RbacHtml::encode($this->title) ?></h1>
 
     <div>
-        <?=
-            RbacHtml::a(Yii::t('app', 'Create Description Main'), ['create'], ['class' => 'btn btn-success']);
+        <?= 
+            RbacHtml::a(Yii::t('app', 'Create Decoration'), ['create'], ['class' => 'btn btn-success']);
 //           $this->render('_create_modal', ['model' => $model]);
         ?>
     </div>

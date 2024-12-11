@@ -7,17 +7,20 @@ use admin\modules\rbac\components\RbacNav;
 use common\components\helpers\UserUrl;
 use common\models\{BuildingSearch,
     ComplexSearch,
+    DecorationSearch,
     DescriptionMainSearch,
     DeveloperSearch,
     DiscountSearch,
     ExportListSearch,
     FlatSearch,
     ImageSearch,
+    InfrastructureSearch,
     PlanSearch,
     ProfitMainSearch,
     RoomAreaSearch,
     SaleInfoSearch,
     TextSearch,
+    VideoSearch,
     WorkDaySearch};
 use common\modules\log\Log;
 use common\modules\mail\models\{MailingLogSearch, MailingSearch, MailTemplateSearch};
@@ -82,15 +85,15 @@ if (!Yii::$app->user->isGuest) {
                     'url' => UserUrl::setFilters(DiscountSearch::class, ['/discount/index'])
                 ],
                 [
-                    'label' => Yii::t('app', 'Profit Mains'),
+                    'label' => Yii::t('app', 'Profits Main'),
                     'url' => UserUrl::setFilters(ProfitMainSearch::class, ['/profit-main/index'])
                 ],
                 [
-                    'label' => Yii::t('app', 'Description Mains'),
+                    'label' => Yii::t('app', 'Descriptions Main'),
                     'url' => UserUrl::setFilters(DescriptionMainSearch::class, ['/description-main/index'])
                 ],
                 [
-                    'label' => Yii::t('app', 'Sale Infos'),
+                    'label' => Yii::t('app', 'Sales Info'),
                     'url' => UserUrl::setFilters(SaleInfoSearch::class, ['/sale-info/index'])
                 ],
                 [
@@ -106,9 +109,21 @@ if (!Yii::$app->user->isGuest) {
                     'url' => UserUrl::setFilters(PlanSearch::class, ['/plan/index'])
                 ],
                 [
-                    'label' => Yii::t('app', 'Room Areas'),
+                    'label' => Yii::t('app', 'Rooms Area'),
                     'url' => UserUrl::setFilters(RoomAreaSearch::class, ['/room-area/index'])
                 ],
+                [
+                    'label' => Yii::t('app', 'Decorations'),
+                    'url' => UserUrl::setFilters(DecorationSearch::class, ['/decoration/index'])
+                ],
+                [
+                    'label' => Yii::t('app', 'Infrastructures'),
+                    'url' => UserUrl::setFilters(InfrastructureSearch::class, ['/infrastructure/index'])
+                ],
+                [
+                    'label' => Yii::t('app', 'Videos'),
+                    'url' => UserUrl::setFilters(VideoSearch::class, ['/video/index'])
+                ]
             ]
         ],
         [

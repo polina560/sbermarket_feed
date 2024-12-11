@@ -52,7 +52,7 @@ class SaleInfo extends AppActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'id_complex' => Yii::t('app', 'Id Complex'),
+            'id_complex' => Yii::t('app', 'ID Complex'),
             'sales_phone' => Yii::t('app', 'Sales Phone'),
             'address' => Yii::t('app', 'Address'),
             'sales_latitude' => Yii::t('app', 'Sales Latitude'),

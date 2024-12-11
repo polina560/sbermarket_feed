@@ -46,7 +46,7 @@ class Plan extends AppActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'id_flat' => Yii::t('app', 'Id Flat'),
+            'id_flat' => Yii::t('app', 'ID Flat'),
             'plan' => Yii::t('app', 'Plan'),
         ];
     }

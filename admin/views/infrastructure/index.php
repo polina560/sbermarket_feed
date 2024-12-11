@@ -9,21 +9,21 @@ use yii\widgets\ListView;
 
 /**
  * @var $this         yii\web\View
- * @var $searchModel  common\models\DescriptionMainSearch
+ * @var $searchModel  common\models\InfrastructureSearch
  * @var $dataProvider yii\data\ActiveDataProvider
- * @var $model        common\models\DescriptionMain
+ * @var $model        common\models\Infrastructure
  */
 
-$this->title = Yii::t('app', 'Descriptions Main');
+$this->title = Yii::t('app', 'Infrastructures');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="description-main-index">
+<div class="infrastructure-index">
 
     <h1><?= RbacHtml::encode($this->title) ?></h1>
 
     <div>
-        <?=
-            RbacHtml::a(Yii::t('app', 'Create Description Main'), ['create'], ['class' => 'btn btn-success']);
+        <?= 
+            RbacHtml::a(Yii::t('app', 'Create Infrastructure'), ['create'], ['class' => 'btn btn-success']);
 //           $this->render('_create_modal', ['model' => $model]);
         ?>
     </div>
@@ -37,8 +37,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             Column::widget(),
             Column::widget(['attr' => 'id_complex']),
-            Column::widget(['attr' => 'title']),
-            Column::widget(['attr' => 'text']),
+            Column::widget(['attr' => 'parking']),
+            Column::widget(['attr' => 'security']),
+            Column::widget(['attr' => 'fenced_area']),
+//            Column::widget(['attr' => 'sports_ground']),
+//            Column::widget(['attr' => 'playground']),
+//            Column::widget(['attr' => 'school']),
+//            Column::widget(['attr' => 'kindergarten']),
 
             ['class' => GroupedActionColumn::class]
         ]

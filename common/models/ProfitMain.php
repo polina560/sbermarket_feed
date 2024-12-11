@@ -49,7 +49,7 @@ class ProfitMain extends AppActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'id_complex' => Yii::t('app', 'Id Complex'),
+            'id_complex' => Yii::t('app', 'ID Complex'),
             'title' => Yii::t('app', 'Title'),
             'text' => Yii::t('app', 'Text'),
             'image' => Yii::t('app', 'Image'),

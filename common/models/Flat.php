@@ -65,7 +65,7 @@ class Flat extends AppActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'flat_id' => Yii::t('app', 'Flat ID'),
-            'id_building' => Yii::t('app', 'Id Building'),
+            'id_building' => Yii::t('app', 'ID Building'),
             'apartment' => Yii::t('app', 'Apartment'),
             'floor' => Yii::t('app', 'Floor'),
             'room' => Yii::t('app', 'Room'),
