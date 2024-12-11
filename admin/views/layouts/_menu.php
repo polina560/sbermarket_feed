@@ -129,6 +129,7 @@ if (!Yii::$app->user->isGuest) {
         [
             'label' => Icon::show('cogs') . 'Управление',
             'items' => [
+                ['label' => Icon::show('wrench') . 'Публичные параметры', 'url' => ['/param/index']],
                 [
                     'label' => Icon::show('list-ul') . 'Лог изменений',
                     'url' => UserUrl::setFilters(Log::class, ['/log/main/index']),
