@@ -15,7 +15,7 @@ class m241211_064345_create_infrastructure_table extends Migration
         $this->createTable('{{%infrastructure}}', [
             'id' => $this->primaryKey(),
             'id_complex' => $this->integer()->notNull()->comment('Комплекс'),
-            'parking' => $this->integer()->comment('Парковка'),
+            'parking' => $this->string()->comment('Парковка'),
             'security' => $this->boolean()->comment('Охрана'),
             'fenced_area' => $this->boolean()->comment('Огороженная территория'),
             'sports_ground' => $this->boolean()->comment('Спортивная площадка'),

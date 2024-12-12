@@ -12,6 +12,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property int          $id
  * @property int          $id_complex Комплекс
+ * @property int          $id_decoration Отделка
  * @property string       $image      Ссылка на изображение
  *
  * @property-read Complex $complex
@@ -33,7 +34,7 @@ class Image extends AppActiveRecord
     {
         return [
             [['id_complex', 'image'], 'required'],
-            [['id_complex'], 'integer'],
+            [['id_complex', 'id_decoration'], 'integer'],
             [['image'], 'string', 'max' => 255],
             [['id_complex'], 'exist', 'skipOnError' => true, 'targetClass' => Complex::class, 'targetAttribute' => ['id_complex' => 'id']]
         ];
@@ -46,7 +47,7 @@ class Image extends AppActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'id_complex' => Yii::t('app', 'Id Complex'),
+            'id_complex' => Yii::t('app', 'ID Complex'),
             'image' => Yii::t('app', 'Image'),
         ];
     }

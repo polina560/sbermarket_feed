@@ -13,6 +13,7 @@ use yii\helpers\ArrayHelper;
  * This is the model class for table "{{%complex}}".
  *
  * @property int                    $id
+ * @property int                    $id_complex
  * @property string                 $name      Название ЖК
  * @property float                  $latitude  Географическая широта ЖК
  * @property float                  $longitude Географическая долгота ЖК

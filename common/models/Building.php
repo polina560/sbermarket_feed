@@ -11,7 +11,6 @@ use yii\helpers\ArrayHelper;
  * This is the model class for table "{{%building}}".
  *
  * @property int              $id
- * @property int              $id_build              ID корпуса новостройки
  * @property int              $fz_214                Соответствие ФЗ-214
  * @property int              $id_complex            Комплекс
  * @property string           $name                  Название корпуса
@@ -42,7 +41,7 @@ class Building extends AppActiveRecord
     public function rules(): array
     {
         return [
-            [['id_build', 'fz_214', 'id_complex', 'name'], 'required'],
+            [['fz_214', 'id_complex', 'name'], 'required'],
             [['id_build', 'fz_214', 'id_complex', 'floors', 'floors_ready', 'building_state', 'passenger_lifts_count', 'cargo_lifts_count'], 'integer'],
             [['ceiling_height'], 'number'],
             [['name', 'image'], 'string', 'max' => 255],
@@ -57,7 +56,6 @@ class Building extends AppActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'id_build' => Yii::t('app', 'ID Build'),
             'fz_214' => Yii::t('app', 'Fz 214'),
             'id_complex' => Yii::t('app', 'ID Complex'),
             'name' => Yii::t('app', 'Name'),

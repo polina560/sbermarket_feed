@@ -15,7 +15,7 @@ class m241210_125706_create_work_day_table extends Migration
         $this->createTable('{{%work_day}}', [
             'id' => $this->primaryKey(),
             'id_sale_info' => $this->integer()->notNull()->comment('Отдел продаж'),
-            'day' => $this->integer()->notNull()->comment('День недели'),
+            'day' => $this->string()->notNull()->comment('День недели'),
             'open_at' => $this->integer()->notNull()->comment('Время открытия'),
             'close_at' => $this->integer()->notNull()->comment('Время закртыия'),
         ]);
