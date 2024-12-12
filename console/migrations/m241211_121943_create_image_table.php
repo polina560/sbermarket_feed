@@ -16,7 +16,7 @@ class m241211_121943_create_image_table extends Migration
             'id' => $this->primaryKey(),
             'id_complex' => $this->integer()->notNull()->comment('Комплекс'),
             'id_decoration' => $this->integer()->comment('Отделка'),
-            'image' => $this->string()->notNull()->comment('Ссылка на изображение'),
+            'image' => $this->text()->notNull()->comment('Ссылка на изображение'),
 
         ]);
 

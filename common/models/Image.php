@@ -35,7 +35,7 @@ class Image extends AppActiveRecord
         return [
             [['id_complex', 'image'], 'required'],
             [['id_complex', 'id_decoration'], 'integer'],
-            [['image'], 'string', 'max' => 255],
+            [['image'], 'string'],
             [['id_complex'], 'exist', 'skipOnError' => true, 'targetClass' => Complex::class, 'targetAttribute' => ['id_complex' => 'id']]
         ];
     }

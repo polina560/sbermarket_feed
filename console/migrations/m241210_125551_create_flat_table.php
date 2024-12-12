@@ -13,8 +13,8 @@ class m241210_125551_create_flat_table extends Migration
     final public function safeUp()
     {
         $this->createTable('{{%flat}}', [
-            'id' => 'int NOT NULL',
-//            'flat_id' => $this->integer()->notNull()->comment('ID квартиры'),
+            'id' => $this->primaryKey(),
+            'flat_id' => $this->integer()->notNull()->comment('ID квартиры'),
             'id_building' => $this->integer()->notNull()->comment('Строение'),
             'apartment' => $this->integer()->notNull()->comment('Номер квартиры'),
             'floor' => $this->integer()->notNull()->comment('Этаж'),
@@ -31,8 +31,8 @@ class m241210_125551_create_flat_table extends Migration
             'bathroom' => $this->integer()->comment('Санузел'),
             'layout_type' => $this->string()->comment('Тип планировки'),
             'housing_type' => $this->integer()->notNull()->comment('Тип жилья'),
-            'PRIMARY KEY (id)'
         ]);
+
         $this->addForeignKey('FK_flat_building', '{{%flat}}', 'id_building', '{{%building}}', 'id', 'CASCADE', 'CASCADE');
 
     }

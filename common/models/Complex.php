@@ -6,27 +6,20 @@ use common\models\AppActiveRecord;
 use OpenApi\Attributes\Property;
 use OpenApi\Attributes\Schema;
 use Yii;
-use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%complex}}".
  *
- * @property int                    $id
- * @property int                    $id_complex
- * @property string                 $name      Название ЖК
- * @property float                  $latitude  Географическая широта ЖК
- * @property float                  $longitude Географическая долгота ЖК
- * @property string                 $address   Название ЖК
- *
- * @property-read Building[]        $buildings
- * @property-read DescriptionMain[] $descriptionMains
- * @property-read Developer[]       $developers
- * @property-read Discount[]        $discounts
- * @property-read Image[]           $images
- * @property-read ProfitMain[]      $profitMains
- * @property-read SaleInfo[]        $saleInfos
+ * @property int    $id
+ * @property int    $id_complex ID Комплекса
+ * @property string $name       Название ЖК
+ * @property float  $latitude   Географическая широта ЖК
+ * @property float  $longitude  Географическая долгота ЖК
+ * @property string $address    Название ЖК
+ * @property int    $id_feed    ID XML-файла
  */
+
 #[Schema ( properties: [
     new Property(property: 'name', type: 'string')
 ])]
@@ -46,23 +39,10 @@ class Complex extends AppActiveRecord
     public function rules(): array
     {
         return [
-            [['name', 'latitude', 'longitude', 'address'], 'required'],
+            [['id_complex', 'name', 'latitude', 'longitude', 'address', 'id_feed'], 'required'],
+            [['id_complex', 'id_feed'], 'integer'],
             [['latitude', 'longitude'], 'number'],
             [['name', 'address'], 'string', 'max' => 255]
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    final public function attributeLabels(): array
-    {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'latitude' => Yii::t('app', 'Latitude'),
-            'longitude' => Yii::t('app', 'Longitude'),
-            'address' => Yii::t('app', 'Address'),
         ];
     }
 
@@ -73,38 +53,19 @@ class Complex extends AppActiveRecord
         ];
     }
 
-    final public function getBuildings(): ActiveQuery
+    /**
+     * {@inheritdoc}
+     */
+    final public function attributeLabels(): array
     {
-        return $this->hasMany(Building::class, ['id_complex' => 'id']);
-    }
-
-    final public function getDescriptionMains(): ActiveQuery
-    {
-        return $this->hasMany(DescriptionMain::class, ['id_complex' => 'id']);
-    }
-
-    final public function getDevelopers(): ActiveQuery
-    {
-        return $this->hasMany(Developer::class, ['id_complex' => 'id']);
-    }
-
-    final public function getDiscounts(): ActiveQuery
-    {
-        return $this->hasMany(Discount::class, ['id_complex' => 'id']);
-    }
-
-    final public function getImages(): ActiveQuery
-    {
-        return $this->hasMany(Image::class, ['id_complex' => 'id']);
-    }
-
-    final public function getProfitMains(): ActiveQuery
-    {
-        return $this->hasMany(ProfitMain::class, ['id_complex' => 'id']);
-    }
-
-    final public function getSaleInfos(): ActiveQuery
-    {
-        return $this->hasMany(SaleInfo::class, ['id_complex' => 'id']);
+        return [
+            'id' => Yii::t('app', 'ID'),
+            'id_complex' => Yii::t('app', 'Id Complex'),
+            'name' => Yii::t('app', 'Name'),
+            'latitude' => Yii::t('app', 'Latitude'),
+            'longitude' => Yii::t('app', 'Longitude'),
+            'address' => Yii::t('app', 'Address'),
+            'id_feed' => Yii::t('app', 'Id Feed'),
+        ];
     }
 }

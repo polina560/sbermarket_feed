@@ -13,6 +13,7 @@ use yii\helpers\ArrayHelper;
  * @property int              $id
  * @property int              $fz_214                Соответствие ФЗ-214
  * @property int              $id_complex            Комплекс
+ * @property int              $id_build              ID Строения
  * @property string           $name                  Название корпуса
  * @property int|null         $floors                Количество этажей
  * @property int|null         $floors_ready          Количество построенных этажей
@@ -41,7 +42,7 @@ class Building extends AppActiveRecord
     public function rules(): array
     {
         return [
-            [['fz_214', 'id_complex', 'name'], 'required'],
+            [[ 'id_complex'], 'required'],
             [['id_build', 'fz_214', 'id_complex', 'floors', 'floors_ready', 'building_state', 'passenger_lifts_count', 'cargo_lifts_count'], 'integer'],
             [['ceiling_height'], 'number'],
             [['name', 'image'], 'string', 'max' => 255],
@@ -58,6 +59,7 @@ class Building extends AppActiveRecord
             'id' => Yii::t('app', 'ID'),
             'fz_214' => Yii::t('app', 'Fz 214'),
             'id_complex' => Yii::t('app', 'ID Complex'),
+            'id_build' => Yii::t('app', 'ID Building'),
             'name' => Yii::t('app', 'Name'),
             'floors' => Yii::t('app', 'Floors'),
             'floors_ready' => Yii::t('app', 'Floors Ready'),
