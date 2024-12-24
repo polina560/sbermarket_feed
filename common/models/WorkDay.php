@@ -12,9 +12,9 @@ use yii\helpers\ArrayHelper;
  *
  * @property int           $id
  * @property int           $id_sale_info Отдел продаж
- * @property int           $day          День недели
- * @property int           $open_at      Время открытия
- * @property int           $close_at     Время закртыия
+ * @property string        $day          День недели
+ * @property string        $open_at      Время открытия
+ * @property string        $close_at     Время закртыия
  *
  * @property-read SaleInfo $saleInfo
  */
@@ -35,7 +35,8 @@ class WorkDay extends AppActiveRecord
     {
         return [
             [['id_sale_info', 'day', 'open_at', 'close_at'], 'required'],
-            [['id_sale_info', 'day', 'open_at', 'close_at'], 'integer'],
+            [['id_sale_info'], 'integer'],
+            [['day', 'open_at', 'close_at'], 'string', 'max' => 255],
             [['id_sale_info'], 'exist', 'skipOnError' => true, 'targetClass' => SaleInfo::class, 'targetAttribute' => ['id_sale_info' => 'id']]
         ];
     }
@@ -47,7 +48,7 @@ class WorkDay extends AppActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'id_sale_info' => Yii::t('app', 'ID Sale Info'),
+            'id_sale_info' => Yii::t('app', 'Id Sale Info'),
             'day' => Yii::t('app', 'Day'),
             'open_at' => Yii::t('app', 'Open At'),
             'close_at' => Yii::t('app', 'Close At'),

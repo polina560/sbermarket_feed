@@ -16,8 +16,8 @@ class m241210_125706_create_work_day_table extends Migration
             'id' => $this->primaryKey(),
             'id_sale_info' => $this->integer()->notNull()->comment('Отдел продаж'),
             'day' => $this->string()->notNull()->comment('День недели'),
-            'open_at' => $this->integer()->notNull()->comment('Время открытия'),
-            'close_at' => $this->integer()->notNull()->comment('Время закртыия'),
+            'open_at' => $this->string()->notNull()->comment('Время открытия'),
+            'close_at' => $this->string()->notNull()->comment('Время закртыия'),
         ]);
 
         $this->addForeignKey('FK_work_day_sale_info', '{{%work_day}}', 'id_sale_info', '{{%sale_info}}', 'id', 'CASCADE', 'CASCADE');

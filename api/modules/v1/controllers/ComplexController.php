@@ -6,10 +6,16 @@ use api\behaviors\returnStatusBehavior\JsonSuccess;
 use common\components\exceptions\ModelSaveException;
 use common\models\Building;
 use common\models\Complex;
+use common\models\DescriptionMain;
+use common\models\Discount;
 use common\models\Flat;
 use common\models\Image;
 use common\models\Param;
 use common\models\Plan;
+use common\models\ProfitMain;
+use common\models\RoomArea;
+use common\models\SaleInfo;
+use common\models\WorkDay;
 use common\models\XmlFile;
 use OpenApi\Attributes\Get;
 use OpenApi\Attributes\Items;
@@ -91,7 +97,6 @@ class ComplexController extends AppController
         $complexes = Complex::find()->where(['id_feed' => $xml_key])->all();
 
         $this->deleteModelItem($complexes, $array_xml);
-//        $new_complexes = $this->searchNewItem($complex, $array_xml);
 
         foreach ($array_xml as $xml_complex) {
             $complex = $this->searchModelItem($complexes, $xml_complex['id']);
@@ -100,11 +105,11 @@ class ComplexController extends AppController
             }
 
             // вынести в отдельную функцию + проверка на существование тега
-            $complex->id_complex = (int)$xml_complex['id'];
-            $complex->name = $xml_complex['name'];
-            $complex->latitude = $xml_complex['latitude'];
-            $complex->longitude = $xml_complex['longitude'];
-            $complex->address = $xml_complex['address'];
+            if(!is_array($xml_complex['id']))$complex->id_complex = (int)$xml_complex['id'];
+            if(!is_array($xml_complex['name']))$complex->name = $xml_complex['name'];
+            if(!is_array($xml_complex['latitude']))$complex->latitude = $xml_complex['latitude'];
+            if(!is_array($xml_complex['longitude']))$complex->longitude = $xml_complex['longitude'];
+            if(!is_array($xml_complex['address']))$complex->address = $xml_complex['address'];
             $complex->id_feed = $xml_key;
             if (!$complex->save()) {
                 throw new ModelSaveException($complex);
@@ -120,7 +125,7 @@ class ComplexController extends AppController
                     $image = new Image();
                     $image->id_complex = $complex->id;
 
-                    $image->image = $this->imageSave($item);
+                    $image->image = $item;
                     if (!$image->save()) {
                         throw new ModelSaveException($image);
                     }
@@ -136,52 +141,200 @@ class ComplexController extends AppController
                     $building = new Building();
                 }
 
-                $building->id_build = (int)$xml_building['id'];
-                $building->fz_214 = $xml_building['fz_214'];
+                if(!is_array($xml_building['id'])) $building->id_build = (int)$xml_building['id'];
+                if(!is_array($xml_building['fz_214']))$building->fz_214 = $xml_building['fz_214'];
+                if(!is_array($xml_building['name']))$building->name = $xml_building['name'];
                 $building->id_complex = $complex->id;
-//                $building->name = $xml_building['name'];
-//                if(array_key_exists('floors', $xml_building))$building->floors = $xml_building['floors'];
-//                if(array_key_exists('floors_ready', $xml_building))$building->floors_ready = $xml_building['floors_ready'];
-//                if(array_key_exists('building_state', $xml_building))$building->building_state = $xml_building['building_state'];
-//                if(array_key_exists('image', $xml_building))$building->image = $this->imageSave($xml_building['image']);
-//                if(array_key_exists('ceiling_height', $xml_building))$building->ceiling_height = $xml_building['ceiling_height'];
-//                if(array_key_exists('passenger_lifts_count', $xml_building))$building->passenger_lifts_count = $xml_building['passenger_lifts_count'];
-//                if(array_key_exists('cargo_lifts_count', $xml_building))$building->cargo_lifts_count = $xml_building['cargo_lifts_count'];
+                if(array_key_exists('floors', $xml_building) && !is_array($xml_building['floors']))$building->floors = $xml_building['floors'];
+                if(array_key_exists('floors_ready', $xml_building) && !is_array($xml_building['floors_ready']))$building->floors_ready = $xml_building['floors_ready'];
+                if(array_key_exists('building_state', $xml_building) && !is_array($xml_building['building_state']))$building->building_state = $xml_building['building_state'];
+                if(array_key_exists('image', $xml_building) && !is_array($xml_building['image']))$building->image = $this->imageSave($xml_building['image']);
+                if(array_key_exists('ceiling_height', $xml_building) && !is_array($xml_building['ceiling_height']))$building->ceiling_height = $xml_building['ceiling_height'];
+                if(array_key_exists('passenger_lifts_count', $xml_building) && !is_array($xml_building['passenger_lifts_count']))$building->passenger_lifts_count = $xml_building['passenger_lifts_count'];
+                if(array_key_exists('cargo_lifts_count', $xml_building) && !is_array($xml_building['cargo_lifts_count']))$building->cargo_lifts_count = $xml_building['cargo_lifts_count'];
                 if (!$building->save()) {
                     throw new ModelSaveException($building);
                 }
-//
+
                 $flats = Flat::find()->where(['id_building' => $building->id])->all();
                 $this->deleteModelItem($flats, $xml_building['flats']);
-                foreach ($xml_building['flats'] as $xml_flat) {
-////                    $flat = $this->searchModelItem($flats, $xml_flat['flat_id']);
-//                    if ($flat == null) {
-//                        $flat = new Flat();
-//                    }
-//                    $flat->flat_id = $xml_flat['flat_id'];
-//                    $flat->id_building = $building->id;
-//                    $flat->apartment = $xml_flat['apartment'];
-//                    $flat->floor = $xml_flat['floor'];
-//                    $flat->room = $xml_flat['room'];
-//                    if(array_key_exists('ceiling_height', $xml_building))$flat->ceiling_height = $xml_flat['ceiling_height'];
-//                    if(array_key_exists('description', $xml_building))$flat->description = $xml_flat['description'];
-//                    if(array_key_exists('balcony', $xml_building))$flat->balcony = $xml_flat['balcony'];
-//                    if(array_key_exists('renovation', $xml_building))$flat->renovation = $xml_flat['renovation'];
-//                    $flat->price = $xml_flat['price'];
-//                    $flat->area = $xml_flat['area'];
-//                    $flat->living_area = $xml_flat['living_area'];
-//                    $flat->kitchen_area = $xml_flat['kitchen_area'];
-//                    if(array_key_exists('window_view', $xml_building))$flat->window_view = $xml_flat['window_view'];
-//                    if(array_key_exists('bathroom', $xml_building))$flat->bathroom = $xml_flat['bathroom'];
-//                    if(array_key_exists('layout_type', $xml_building))$flat->layout_type = $xml_flat['layout_type'];
-//                    $flat->housing_type = $xml_flat['housing_type'];
-//                    if (!$flat->save()) {
-//                        throw new ModelSaveException($flat);
-//                    }
+                foreach ($xml_building['flats']['flat'] as $xml_flat) {
+                    $flat = $this->searchModelItem($flats, $xml_flat['flat_id']);
+                    if ($flat == null) {
+                        $flat = new Flat();
+                    }
+                    if(!is_array($xml_flat['flat_id']))$flat->flat_id = (int)$xml_flat['flat_id'];
+                    $flat->id_building = $building->id;
+                    if(!is_array($xml_flat['apartment']))$flat->apartment = $xml_flat['apartment'];
+                    if(!is_array($xml_flat['floor']))$flat->floor = $xml_flat['floor'];
+                    if(!is_array($xml_flat['room']))$flat->room = $xml_flat['room'];
+                    if(array_key_exists('ceiling_height', $xml_building) && !is_array($xml_flat['ceiling_height']))$flat->ceiling_height = $xml_flat['ceiling_height'];
+                    if(array_key_exists('description', $xml_building) && !is_array($xml_flat['description']))$flat->description = $xml_flat['description'];
+                    if(array_key_exists('balcony', $xml_building) && !is_array($xml_flat['balcony']))$flat->balcony = $xml_flat['balcony'];
+                    if(array_key_exists('renovation', $xml_building) && !is_array($xml_flat['renovation']))$flat->renovation = $xml_flat['renovation'];
+                    if(!is_array($xml_flat['price']))$flat->price = $xml_flat['price'];
+                    if(!is_array($xml_flat['area']))$flat->area = $xml_flat['area'];
+                    if(!is_array($xml_flat['living_area']))$flat->living_area = $xml_flat['living_area'];
+                    if(!is_array($xml_flat['kitchen_area']))$flat->kitchen_area = $xml_flat['kitchen_area'];
+                    if(array_key_exists('window_view', $xml_building) && !is_array($xml_flat['window_view']))$flat->window_view = $xml_flat['window_view'];
+                    if(array_key_exists('bathroom', $xml_building) && !is_array($xml_flat['bathroom']))$flat->bathroom = $xml_flat['bathroom'];
+                    if(array_key_exists('layout_type', $xml_building) && !is_array($xml_flat['layout_type']))$flat->layout_type = $xml_flat['layout_type'];
+                    if(!is_array($xml_flat['housing_type']))$flat->housing_type = $xml_flat['housing_type'];
+                    if (!$flat->save()) {
+                        throw new ModelSaveException($flat);
+                    }
 
-//                    $plan = Plan::find()->where(['id_flat' => $flat->id])->all();
+                    $plans = Plan::find()->where(['id_flat' => $flat->id])->all();
+                    if (!empty($plans)) {
+                        $this->deleteAllItems($plans);
+                    }
+                    if (!empty($xml_flat['plans']['plan']) && array_is_list($xml_flat['plans']['plan'])) {
+                        foreach ($xml_flat['plans']['plan'] as $item) {
+                            $plan = new Plan();
+                            $plan->id_flat = $flat->id;
+                            if(!is_array($item))$plan->plan = $item;
+                            if (!$plan->save()) {
+                                throw new ModelSaveException($plan);
+                            }
+                        }
+                    }
+                    else if(array_key_exists('plan', $xml_flat)){
+                        $plan = new Plan();
+                        $plan->id_flat = $flat->id;
+                        if(!is_array($xml_flat['plan']))$plan->plan = $xml_flat['plan'];
+                        if (!$plan->save()) {
+                            throw new ModelSaveException($plan);
+                        }
+
+                    }
+
+                    $rooms_area = RoomArea::find()->where(['id_flat' => $flat->id])->all();
+                    if (!empty($rooms_area)) {
+                        $this->deleteAllItems($rooms_area);
+                    }
+                    if (!empty($xml_flat['rooms_area']['area']) && array_is_list($xml_flat['rooms_area']['area'])) {
+                        foreach ($xml_flat['rooms_area']['area'] as $item) {
+                            $area = new RoomArea();
+                            $area->id_flat = $flat->id;
+                            if(!is_array($item))$area->area = $item;
+                            if (!$area->save()) {
+                                throw new ModelSaveException($area);
+                            }
+                        }
+                    }
+
                 }
             }
+
+            $discounts = Discount::find()->where(['id_complex' => $complex->id])->all();
+            if (!empty($discounts)) {
+                $this->deleteAllItems($discounts);
+            }
+            if (!empty($xml_complex['discounts']['discount']) && array_is_list($xml_complex['discounts']['discount'])) {
+                foreach ($xml_complex['discounts']['discount'] as $item) {
+                    $discount = new Discount();
+                    $discount->id_complex = $complex->id;
+                    if(!is_array($item['description']))$discount->description = $item['description'];
+                    if(!is_array($item['name']))$discount->name = $item['name'];
+                    if (!$discount->save()) {
+                        throw new ModelSaveException($discount);
+                    }
+                }
+            }
+            else if(array_key_exists('discount', $xml_complex)){
+                $discount = new Discount();
+                $discount->id_complex = $complex->id;
+                if(!is_array($xml_complex['discount']['description']))$discount->description = $xml_complex['discount']['description'];
+                if(!is_array($xml_complex['discount']['name']))$discount->name = $xml_complex['discount']['name'];
+                if (!$discount->save()) {
+                    throw new ModelSaveException($discount);
+                }
+
+            }
+
+            $profits_main = ProfitMain::find()->where(['id_complex' => $complex->id])->all();
+            if (!empty($profits_main)) {
+                $this->deleteAllItems($profits_main);
+            }
+            if (!empty($xml_complex['profits_main']['profit_main']) && array_is_list($xml_complex['profits_main']['profit_main'])) {
+                foreach ($xml_complex['profits_main']['profit_main'] as $item) {
+                    $profit_main = new ProfitMain();
+                    $profit_main->id_complex = $complex->id;
+                    if(!is_array($item['title']))$profit_main->title = $item['title'];
+                    if(!is_array($item['text']))$profit_main->text = $item['text'];
+                    if(!is_array($item['image']))$profit_main->image = $item['image'];
+                    if (!$profit_main->save()) {
+                        throw new ModelSaveException($profit_main);
+                    }
+                }
+            }
+            else if(array_key_exists('profit_main', $xml_complex)){
+                $profit_main = new ProfitMain();
+                $profit_main->id_complex = $complex->id;
+                if(!is_array($xml_complex['profit_main']['title']))$profit_main->title = $xml_complex['profit_main']['title'];
+                if(!is_array($xml_complex['profit_main']['text']))$profit_main->text = $xml_complex['profit_main']['text'];
+                if(!is_array($xml_complex['profit_main']['image']))$profit_main->image = $xml_complex['profit_main']['image'];
+                if (!$profit_main->save()) {
+                    throw new ModelSaveException($profit_main);
+                }
+            }
+
+            $description_main = DescriptionMain::find()->where(['id_complex' => $complex->id])->all();
+            if (!empty($description_main)) {
+                $this->deleteAllItems($description_main);
+            }
+            if (!empty($xml_complex['description_main']) ) {
+                $description_main = new DescriptionMain();
+                $description_main->id_complex = $complex->id;
+                if(array_key_exists('title', $xml_complex['description_main']))$description_main->title = $xml_complex['description_main']['title'];
+                if(array_key_exists('text', $xml_complex['description_main']))$description_main->text = $xml_complex['description_main']['text'];
+                if (!$description_main->save()) {
+                    throw new ModelSaveException($description_main);
+                }
+
+            }
+
+            $sales_info = SaleInfo::find()->where(['id_complex' => $complex->id])->all();
+            if (!empty($sales_info)) {
+                $this->deleteAllItems($sales_info);
+            }
+            if (!empty($xml_complex['sales_info'])) {
+                $sale_info = new SaleInfo();
+                $sale_info->id_complex = $complex->id;
+                if(!is_array($xml_complex['sales_info']['sales_phone']))$sale_info->sales_phone = $xml_complex['sales_info']['sales_phone'];
+                if(array_key_exists('address', ['sales_info']))$sale_info->address = $xml_complex['sales_info']['address'];
+                if(array_key_exists('sales_latitude', $xml_complex['sales_info']))$sale_info->sales_latitude = $xml_complex['sales_info']['sales_latitude'];
+                if(array_key_exists('sales_longitude', $xml_complex['sales_info']))$sale_info->sales_longitude = $xml_complex['sales_info']['sales_longitude'];
+                if(!is_array($xml_complex['sales_info']['timezone']))$sale_info->timezone = $xml_complex['sales_info']['timezone'];
+                if (!$sale_info->save()) {
+                    throw new ModelSaveException($sale_info);
+                }
+
+
+                $work_days = WorkDay::find()->where(['id_sale_info' => $sale_info->id])->all();
+                if (!empty($work_days)) {
+                    $this->deleteAllItems($work_days);
+                }
+                if(array_key_exists('work_days', $xml_complex['sales_info']))
+                    if (!empty($xml_complex['sales_info']['work_days']['work_day']) && array_is_list($xml_complex['sales_info']['work_days']['work_day'])) {
+                        foreach ($xml_complex['sales_info']['work_days']['work_day'] as $item) {
+                            $work_day = new WorkDay();
+                            $work_day->id_sale_info = $sale_info->id;
+                            $work_day->day = $item['day'];
+                            $work_day->open_at = $item['open_at'];
+                            $work_day->close_at = $item['close_at'];
+                            if (!$work_day->save()) {
+                                throw new ModelSaveException($work_day);
+                            }
+                        }
+                    }
+
+            }
+
+
+
+
+
         }
     }
 
